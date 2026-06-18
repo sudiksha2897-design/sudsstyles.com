@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Wear Animal Print · @sudsstyles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --cream: #faf6f0;
+    --parchment: #f2ebe0;
+    --orange: #d4854a;
+    --rose: #c4617a;
+    --muted: #8a7968;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--sans); }
+
+  /* HERO */
+  .hero {
+    background: #111;
+    background-image: url('https://images.unsplash.com/photo-1550159930-40066082a4fc?w=1200&q=80');
+    background-size: cover;
+    background-position: center 30%;
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.7) 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .brand-tag {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+  .guide-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 9vw, 72px);
+    font-weight: 700;
+    color: white;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: var(--orange); }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    max-width: 420px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* LAYOUT */
+  .section { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+  .section + .section { padding-top: 0; }
+  hr { border: none; border-top: 1px solid #e0d8cc; max-width: 720px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .section-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #3a3028;
+  }
+
+  /* BIG RULE */
+  .big-rule-box {
+    background: white;
+    border: 1px solid #e0d8cc;
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-top: 28px;
+  }
+  .big-rule-box p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  /* PRINT CARDS */
+  .print-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .print-card {
+    border-radius: 10px;
+    padding: 20px 18px;
+    border-top: 3px solid;
+  }
+  .print-card.leopard { border-color: #c4924a; background: #fdf6ee; }
+  .print-card.zebra   { border-color: #222; background: #f7f7f7; }
+  .print-card.snake   { border-color: #7a8c5e; background: #f4f6f0; }
+  .print-card.cow     { border-color: #c4b89a; background: #fdfaf5; }
+  .print-label {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .print-swatch {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    border: 2px solid rgba(0,0,0,0.08);
+  }
+  .swatch-leopard { background: #c4924a; }
+  .swatch-zebra   { background: linear-gradient(135deg, #111 50%, #fff 50%); }
+  .swatch-snake   { background: #7a8c5e; }
+  .swatch-cow     { background: #e8dfc8; }
+  .print-color {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .print-examples {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; margin-top: 28px; }
+  .checklist li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--parchment);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid #c4924a;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-title {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .check-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* TIPS GRID */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .tip-card {
+    background: white;
+    border: 1px solid #e8e0d4;
+    border-radius: 10px;
+    padding: 22px 18px;
+  }
+  .tip-num {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 700;
+    color: #e8ddd0;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .tip-title {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .tip-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* MISTAKES */
+  .mistake-list { margin-top: 28px; }
+  .mistake {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--parchment);
+    display: flex;
+    gap: 20px;
+  }
+  .mistake:last-child { border-bottom: none; }
+  .mistake-num {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--rose);
+    opacity: 0.5;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .mistake-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .mistake-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .fix {
+    border-left: 3px solid var(--orange);
+    padding-left: 14px;
+  }
+  .fix-label {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .fix-text {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer-section {
+    background: var(--ink);
+    text-align: center;
+    padding: 64px 24px;
+  }
+  .footer-section h2 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 7vw, 52px);
+    font-weight: 700;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .footer-section p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 28px;
+  }
+  .footer-handle {
+    display: inline-block;
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-bottom: 48px;
+  }
+  .footer-bar {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 28px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .footer-bar strong {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-right: 12px;
+  }
+
+  @media (max-width: 500px) {
+    .print-grid { grid-template-columns: 1fr 1fr; }
+    .tips-grid  { grid-template-columns: 1fr 1fr; }
+    .mistake { flex-direction: column; gap: 8px; }
+  }
+  @media (max-width: 380px) {
+    .print-grid { grid-template-columns: 1fr; }
+    .tips-grid  { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="brand-tag">@sudsstyles</div>
+    <div class="guide-label">Style Guide</div>
+    <h1>How to wear<br><em>animal print</em><br>the right way</h1>
+    <p class="hero-sub">It's not as scary as it looks. Once you know the rules, it's actually one of the easiest prints to wear.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- THE BIG RULE -->
+<div class="section">
+  <div class="section-label">The Big Rule</div>
+  <div class="section-title">Anchor the colour &#127;&#143;</div>
+  <div class="big-rule-box">
+    <p>Every animal print has a main background colour hiding inside it. Find it. Then wear that same colour somewhere else in your outfit — a bag, shoes, a belt. That one move makes the whole look planned.</p>
+    <div class="print-grid">
+      <div class="print-card leopard">
+        <div class="print-label">Leopard</div>
+        <div class="print-swatch swatch-leopard"></div>
+        <div class="print-color">Camel</div>
+        <div class="print-examples">Camel coat &middot; tan belt &middot; nude heel &middot; cognac bag</div>
+      </div>
+      <div class="print-card zebra">
+        <div class="print-label">Zebra</div>
+        <div class="print-swatch swatch-zebra"></div>
+        <div class="print-color">White or Black</div>
+        <div class="print-examples">White sneaker &middot; black boot &middot; white tee &middot; black bag</div>
+      </div>
+      <div class="print-card snake">
+        <div class="print-label">Snake</div>
+        <div class="print-swatch swatch-snake"></div>
+        <div class="print-color">Olive or Brown</div>
+        <div class="print-examples">Olive trousers &middot; brown loafer &middot; khaki jacket</div>
+      </div>
+      <div class="print-card cow">
+        <div class="print-label">Cow Print</div>
+        <div class="print-swatch swatch-cow"></div>
+        <div class="print-color">Cream</div>
+        <div class="print-examples">Cream knit &middot; off-white jeans &middot; ivory sneaker</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- CHECKLIST -->
+<div class="section">
+  <div class="section-label">Before You Leave the House</div>
+  <div class="section-title">Quick checklist &#9989;</div>
+  <ul class="checklist">
+    <li>
+      <div class="check-box"></div>
+      <div>
+        <div class="check-title">One animal print piece only</div>
+        <div class="check-desc">Just one. Let it do the talking. Everything else should be a plain solid colour.</div>
+      </div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>
+        <div class="check-title">Anchor colour matched</div>
+        <div class="check-desc">You've pulled the background colour of the print into at least one other item — shoe, bag, or belt.</div>
+      </div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>
+        <div class="check-title">Print size fits your frame</div>
+        <div class="check-desc">Big bold print for bigger frames. Small tight print for petite frames.</div>
+      </div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>
+        <div class="check-title">No other patterns in the outfit</div>
+        <div class="check-desc">Stripes, florals, checks — put them away. Animal print doesn't share the spotlight.</div>
+      </div>
+    </li>
+    <li>
+      <div class="check-box"></div>
+      <div>
+        <div class="check-title">Take a picture before you go</div>
+        <div class="check-desc">If the print is the first thing you notice — great. If it feels like too much — change just one item.</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<hr>
+
+<!-- TIPS -->
+<div class="section">
+  <div class="section-label">Tips and Tricks</div>
+  <div class="section-title">Simple things that make it work &#128,;</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-num">01</div>
+      <div class="tip-title">It's a neutral, not a statement</div>
+      <div class="tip-body">Think of it like denim or stripes. It goes with lots of things once you stop being scared of it.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Start with a small piece</div>
+      <div class="tip-body">Try a leopard belt or snake print bag first. Way easier than a full outfit.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Zebra goes with almost anything</div>
+      <div class="tip-body">Black and white works with every colour. Easiest animal print to start with.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">04</div>
+      <div class="tip-title">Fabric matters a lot</div>
+      <div class="tip-body">The same print in silk looks luxe. In cheap fabric, it looks costume. Quality makes the difference.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">05</div>
+      <div class="tip-title">Match your tones</div>
+      <div class="tip-body">Leopard top + camel trousers + tan boots = instant elevated outfit. All in the same colour family.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">06</div>
+      <div class="tip-title">When in doubt, go smaller</div>
+      <div class="tip-body">A smaller print is always safer. Looks like texture from far away and pattern up close.</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- MISTAKES -->
+<div class="section">
+  <div class="section-label">What Goes Wrong</div>
+  <div class="section-title">4 mistakes to avoid &#10060;</div>
+  <div class="mistake-list">
+    <div class="mistake">
+      <div class="mistake-num">01</div>
+      <div>
+        <div class="mistake-title">Mixing it with another pattern</div>
+        <div class="mistake-desc">Florals + leopard = chaos. The eye doesn't know where to look.</div>
+        <div class="fix">
+          <div class="fix-label">Fix</div>
+          <div class="fix-text">Everything else should be a plain solid colour.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mistake">
+      <div class="mistake-num">02</div>
+      <div>
+        <div class="mistake-title">Wrong print size for your body</div>
+        <div class="mistake-desc">A huge print on a small person is too much. A tiny print on a tall person disappears.</div>
+        <div class="fix">
+          <div class="fix-label">Fix</div>
+          <div class="fix-text">Match the boldness of the print to the boldness of your frame.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mistake">
+      <div class="mistake-num">03</div>
+      <div>
+        <div class="mistake-title">Random accessories that don't connect</div>
+        <div class="mistake-desc">Leopard dress + red bag + silver shoes + white jacket. Each fine alone — together, confusing.</div>
+        <div class="fix">
+          <div class="fix-label">Fix</div>
+          <div class="fix-text">Pull the anchor colour into one accessory. That connection ties it all together.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mistake">
+      <div class="mistake-num">04</div>
+      <div>
+        <div class="mistake-title">Wearing two animal prints at once</div>
+        <div class="mistake-desc">Unless it's the exact same print, two animal prints together usually looks accidental.</div>
+        <div class="fix">
+          <div class="fix-label">Fix</div>
+          <div class="fix-text">One print piece per outfit. Simple rule, big difference.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-section">
+  <h2>You can pull it off.<br>You just needed the rules.</h2>
+  <p>More style guides and tips at</p>
+  <a class="footer-handle" href="https://instagram.com/sudsstyles" target="_blank">@sudsstyles</a>
+  <div class="footer-bar">
+    <strong>sudsstyles</strong>
+    @SUDSSTYLES &middot; FASHION GRADUATE &middot; BRAND DESIGNER &middot; DUBLIN
+  </div>
+</div>
+
+</body>
+</html>

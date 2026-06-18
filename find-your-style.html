@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Style · @sudsstyles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008; --cream: #faf6f0; --parchment: #f2ebe0;
+    --rose: #c4617a; --rose-light: #f5dde3; --muted: #8a7968;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
+  .page { display: none; animation: fadeUp 0.45s ease forwards; }
+  .page.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .brand { text-align: center; padding: 28px 24px 0; }
+  .brand-name { font-family: var(--serif); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); }
+  .landing { max-width: 440px; margin: 0 auto; padding: 32px 24px 60px; text-align: center; }
+  .landing-emoji { font-size: 48px; margin-bottom: 16px; display: block; }
+  .landing h1 { font-family: var(--serif); font-size: clamp(34px,8vw,50px); font-weight: 300; line-height: 1.1; margin-bottom: 16px; }
+  .landing h1 em { font-style: italic; color: var(--rose); }
+  .landing-sub { font-size: 15px; line-height: 1.75; color: var(--muted); margin-bottom: 12px; }
+  .landing-promise { font-size: 13px; color: var(--ink); background: #fdf6ee; border: 1px solid #e8ddd0; border-radius: 8px; padding: 12px 18px; margin: 20px auto 28px; max-width: 340px; line-height: 1.6; }
+  .time-note { font-size: 12px; color: var(--muted); margin-bottom: 24px; letter-spacing: 0.04em; }
+  .btn-primary { display: block; width: 100%; max-width: 300px; margin: 0 auto; background: var(--ink); color: var(--cream); border: none; border-radius: 6px; padding: 17px 32px; font-family: var(--sans); font-size: 14px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--rose); transform: translateY(-1px); }
+  .quiz-wrap { max-width: 480px; margin: 0 auto; padding: 28px 20px 60px; }
+  .progress-label { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-align: right; margin-bottom: 6px; }
+  .progress-bar-track { height: 4px; background: var(--parchment); border-radius: 4px; margin-bottom: 36px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--rose); border-radius: 4px; transition: width 0.4s ease; }
+  .q-emoji { font-size: 36px; margin-bottom: 12px; display: block; }
+  .q-text { font-family: var(--serif); font-size: clamp(22px,5vw,28px); font-weight: 300; line-height: 1.35; margin-bottom: 8px; }
+  .q-hint { font-size: 13px; color: var(--muted); margin-bottom: 28px; line-height: 1.5; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option { border: 2px solid #e0d8cc; border-radius: 10px; padding: 16px 18px; cursor: pointer; transition: all 0.18s; background: white; text-align: left; display: flex; align-items: center; gap: 14px; width: 100%; }
+  .option:hover { border-color: var(--rose); background: var(--rose-light); }
+  .option.selected { border-color: var(--rose); background: var(--rose-light); }
+  .option.selected .opt-marker { background: var(--rose); color: white; border-color: var(--rose); }
+  .opt-marker { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; transition: all 0.18s; }
+  .opt-label { font-size: 15px; line-height: 1.5; color: var(--ink); }
+  .q-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+  .btn-back { background: none; border: none; font-size: 14px; color: var(--muted); cursor: pointer; font-family: var(--sans); padding: 8px 0; }
+  .btn-next { background: var(--ink); color: var(--cream); border: none; border-radius: 6px; padding: 14px 28px; font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: background 0.2s; opacity: 0.3; pointer-events: none; }
+  .btn-next.ready { opacity: 1; pointer-events: all; }
+  .btn-next.ready:hover { background: var(--rose); }
+  .result-wrap { max-width: 480px; margin: 0 auto; padding: 28px 20px 80px; }
+  .welcome-banner { background: var(--rose); color: white; text-align: center; padding: 12px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; margin-bottom: 24px; }
+  .result-header { text-align: center; margin-bottom: 28px; }
+  .result-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 10px; }
+  .result-emoji { font-size: 52px; margin-bottom: 10px; display: block; }
+  .result-type { font-family: var(--serif); font-size: clamp(32px,8vw,48px); font-weight: 300; line-height: 1.1; margin-bottom: 8px; }
+  .result-type em { font-style: italic; color: var(--rose); }
+  .result-tagline { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 360px; margin: 0 auto; }
+  .card { background: white; border: 1px solid #e8e0d4; border-radius: 10px; padding: 22px 20px; margin-bottom: 14px; }
+  .card-title { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #b08060; font-weight: 600; margin-bottom: 14px; }
+  .rule-list { list-style: none; }
+  .rule-list li { padding: 10px 0; border-bottom: 1px solid var(--parchment); font-size: 14px; line-height: 1.65; display: flex; gap: 12px; align-items: flex-start; }
+  .rule-list li:last-child { border-bottom: none; }
+  .avoid-list { list-style: none; }
+  .avoid-list li { padding: 8px 0; font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--parchment); display: flex; gap: 10px; }
+  .avoid-list li:last-child { border-bottom: none; }
+  .avoid-list li::before { content: 'x'; color: var(--rose); font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+  .share-note { text-align: center; font-size: 13px; color: var(--muted); margin-top: 24px; line-height: 1.7; }
+  .retake-btn { display: block; text-align: center; font-size: 12px; color: var(--muted); cursor: pointer; margin: 16px auto 0; text-decoration: underline; background: none; border: none; font-family: var(--sans); }
+  @media (max-width: 400px) { .landing, .quiz-wrap, .result-wrap { padding-left: 16px; padding-right: 16px; } }
+</style>
+</head>
+<body>
+
+<div class="page active" id="page-landing">
+  <div class="brand"><div class="brand-name">@sudsstyles</div></div>
+  <div class="landing">
+    <span class="landing-emoji">&#128,;</span>
+    <h1>What's your<br><em>body shape?</em></h1>
+    <p class="landing-sub">Answer 5 super simple questions and I'll tell you exactly what to wear and what to stop buying.</p>
+    <div class="landing-promise">No confusing fashion words. No measuring tape needed. Just pick the answer that sounds most like you.</div>
+    <div class="time-note">5 questions &middot; 2 minutes &middot; free results</div>
+    <button class="btn-primary" onclick="startQuiz()">Let's find out &rarr;</button>
+    <p style="font-size:11px;color:var(--muted);margin-top:14px">From Sudiksha &mdash; fashion grad &amp; brand designer</p>
+  </div>
+</div>
+
+<div class="page" id="page-quiz">
+  <div class="brand"><div class="brand-name">@sudsstyles</div></div>
+  <div class="quiz-wrap">
+    <div class="progress-label" id="prog-label">1 of 5</div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="prog-fill" style="width:20%"></div></div>
+    <div id="question-area"></div>
+    <div class="q-nav">
+      <button class="btn-back" id="btn-back" onclick="goBack()">&larr; back</button>
+      <button class="btn-next" id="btn-next" onclick="goNext()">Next &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-result">
+  <div class="brand"><div class="brand-name">@sudsstyles</div></div>
+  <div class="result-wrap" id="result-content"></div>
+</div>
+
+<script>
+const questions = [
+  { emoji:"&#128,;", q:"Look at yourself in the mirror. Which part of your body looks the widest?", hint:"Just stand normally and look. No sucking in!", opts:[{emoji:"&#128,;",label:"My shoulders are the widest part",val:"IT"},{emoji:"&#127,;",label:"My hips are the widest part",val:"PE"},{emoji:"&#8987,;",label:"My shoulders and hips are about the same - I have a clear waist",val:"HG"},{emoji:"&#128,;",label:"I'm pretty much the same width all the way down",val:"RE"}] },
+  { emoji:"&#128,;", q:"When you try on jeans in a shop, what's the annoying thing that always happens?", hint:"Pick the one that happens most often.", opts:[{emoji:"&#128,;",label:"They fit my waist but look weird because my shoulders make me look top-heavy",val:"IT"},{emoji:"&#128,;",label:"They fit my waist but are too tight around my hips and bum",val:"PE"},{emoji:"&#129,;",label:"They fit fine but somehow the outfit still feels off",val:"HG"},{emoji:"&#128,;",label:"They fit but I always look a bit shapeless in them",val:"RE"}] },
+  { emoji:"&#128,;", q:"Think of the last photo of yourself you actually liked. What were you wearing?", hint:"The photo where you thought okay I look good here.", opts:[{emoji:"&#128,;",label:"Something flowy or wide on the bottom - like a skirt or wide trousers",val:"IT"},{emoji:"&#10,;",label:"Something with an interesting or eye-catching top half",val:"PE"},{emoji:"&#127,;",label:"Something that showed my waist - belted or fitted in the middle",val:"HG"},{emoji:"&#127,;",label:"Something with a fun pattern, texture or colour - it gave me shape",val:"RE"}] },
+  { emoji:"&#128,;", q:"What happens when you go shopping and try things on?", hint:"Be honest - this is just between us.", opts:[{emoji:"&#128,;",label:"Tops look great, bottoms feel like an afterthought",val:"IT"},{emoji:"&#128,;",label:"I always grab a bigger size on the bottom than the top",val:"PE"},{emoji:"&#128,;",label:"Things fit but I can never figure out why some outfits just don't pop",val:"HG"},{emoji:"&#128,;",label:"Everything fits okay but nothing ever looks exciting",val:"RE"}] },
+  { emoji:"&#127,;", q:"Which outfit sounds like something you'd feel amazing in?", hint:"Don't overthink it - just pick your gut reaction.", opts:[{emoji:"&#128,;",label:"A fitted top tucked into a flowy wide-leg trouser or maxi skirt",val:"IT"},{emoji:"&#127,;",label:"A bold colourful blouse or statement top with dark simple trousers",val:"PE"},{emoji:"&#128,;",label:"A wrap dress or anything with a belt at the waist",val:"HG"},{emoji:"&#127,;",label:"A cool printed co-ord or a dress with ruffles and texture",val:"RE"}] }
+];
+
+const results = {
+  IT: { emoji:"&#128,;", type:"Broad Shoulders", fullname:"The Inverted Triangle", tagline:"Your shoulders are your superpower. Most people dress to hide them. That's the wrong move.", about:"Your shoulders are wider than your hips. The trick is simple: add some volume to your bottom half so it balances with your top. Think of it like a see-saw - you want both sides to feel equal.", rules:[{text:"Wide leg trousers and flowy skirts - they add width to your hips so everything balances"},{text:"V-neck and scoop neck tops - they draw the eye down and inward, away from the shoulders"},{text:"Dark colours on top, lighter or fun patterns on the bottom"},{text:"High waist wide-leg trousers - this is your signature look, it works every single time"},{text:"Wrap tops and dresses - the diagonal line slims the shoulder visually"}], avoid:["Tops with big shoulder details, ruffles or puff sleeves","Off-the-shoulder or halter tops","Cropped blazers (they cut you at the wrong place)","A-line skirts that stop at the hip - they flare too early"] },
+  PE: { emoji:"&#127,;", type:"Bigger on the Bottom", fullname:"The Pear Shape", tagline:"One of the most elegant body shapes in fashion. You just need to know the rules.", about:"Your hips are wider than your shoulders. The goal is to draw people's eyes up to your top half - not because your bottom half isn't great, but because balance makes everything look more intentional.", rules:[{text:"Statement tops, interesting necklines, bold earrings - put the fun stuff on top"},{text:"A-line skirts - they go in at the waist and gently flare out. Made for you."},{text:"Darker colours on the bottom, brighter or patterned on top"},{text:"Wrap dresses - the V-neck draws eyes up, the waist is defined. Perfect every time."},{text:"Straight leg trousers in a dark colour - clean, sleek, long"}], avoid:["Cropped jackets that end right at your hip","Tight bottoms with baggy tops - reverses the balance you want","Horizontal stripes on the bottom half","Tiered or ruffled skirts that add bulk at the hips"] },
+  HG: { emoji:"&#8987,;", type:"Hourglass", fullname:"The Hourglass", tagline:"You already have the shape. You just keep hiding it.", about:"Your shoulders and hips are roughly the same width and you have a defined waist. The mistake most hourglasses make is wearing clothes that are too loose or boxy. Your body rewards outfits that follow your shape - not fight it.", rules:[{text:"Anything that shows your waist - belts, wrap dresses, fitted midi dresses"},{text:"High-waisted everything - skirts, trousers, jeans. Always."},{text:"Fitted clothes that skim your body - not tight, just not hiding anything"},{text:"Wrap tops and dresses - they're literally designed for your shape"},{text:"Add a belt to ANYTHING that looks unfinished. It's your cheat code."}], avoid:["Oversized boxy blazers with no belt","Drop-waist dresses - they hide your best feature","Shapeless smock dresses","Anything that completely hides where your waist is"] },
+  RE: { emoji:"&#128,;", type:"Straight Up and Down", fullname:"The Rectangle", tagline:"Every fashion trend was basically made for you. You just don't know it yet.", about:"Your shoulders, waist and hips are all roughly the same width. You're a blank canvas - which actually means you can wear things other body types can't. The goal is to create some shape and definition where your body doesn't naturally have it.", rules:[{text:"Always create a waist - tuck in your top, add a belt, wear something fitted in the middle"},{text:"Volume play: fitted top + wide trouser, OR full skirt + fitted top. Pick one side to be big."},{text:"Peplum tops and flared skirts - they create curves at the hip that aren't naturally there"},{text:"Bold prints, ruffles, texture, interesting details - you can carry all of it"},{text:"Colour blocking - different colours on top and bottom creates the illusion of definition"}], avoid:["Straight up-and-down cuts with no waist detail at all","Shapeless dresses with nothing at the waist","Baggy tops with straight trousers - doubles down on the rectangular line","All one colour with no texture or contrast"] }
+};
+
+let current = 0, answers = [];
+
+function startQuiz() { showPage('page-quiz'); renderQuestion(); }
+
+function renderQuestion() {
+  const q = questions[current], sel = answers[current];
+  document.getElementById('prog-fill').style.width = ((current+1)/questions.length*100)+'%';
+  document.getElementById('prog-label').textContent = (current+1)+' of '+questions.length;
+  document.getElementById('btn-next').classList.toggle('ready', sel !== undefined);
+  document.getElementById('question-area').innerHTML =
+    '<span class="q-emoji">'+q.emoji+'</span>'+
+    '<div class="q-text">'+q.q+'</div>'+
+    '<div class="q-hint">'+q.hint+'</div>'+
+    '<div class="options">'+q.opts.map(function(o,i){
+      return '<button class="option'+(sel===i?' selected':'')+'" onclick="selectOpt('+i+')">'+
+        '<div class="opt-marker">'+(sel===i?'&#10003;':o.emoji)+'</div>'+
+        '<div class="opt-label">'+o.label+'</div>'+
+        '</button>';
+    }).join('')+'</div>';
+  document.getElementById('btn-back').style.visibility = current===0?'hidden':'visible';
+}
+
+function selectOpt(i) {
+  answers[current]=i;
+  document.querySelectorAll('.option').forEach(function(el,idx){
+    el.classList.toggle('selected',idx===i);
+    el.querySelector('.opt-marker').innerHTML = idx===i?'&#10003;':questions[current].opts[idx].emoji;
+  });
+  document.getElementById('btn-next').classList.add('ready');
+}
+
+function goNext() {
+  if(answers[current]===undefined) return;
+  if(current<questions.length-1){current++;renderQuestion();window.scrollTo(0,0);}
+  else showResult();
+}
+
+function goBack() { if(current>0){current--;renderQuestion();window.scrollTo(0,0);} }
+
+function getResult() {
+  var counts={IT:0,PE:0,HG:0,RE:0};
+  answers.forEach(function(a,qi){ if(a!==undefined) counts[questions[qi].opts[a].val]++; });
+  return Object.keys(counts).reduce(function(a,b){return counts[a]>=counts[b]?a:b;});
+}
+
+function showResult() {
+  var r = results[getResult()];
+  document.getElementById('result-content').innerHTML =
+    '<div class="welcome-banner">Welcome to the @sudsstyles family!</div>'+
+    '<div class="result-header">'+
+      '<div class="result-eyebrow">Your body shape is</div>'+
+      '<span class="result-emoji">'+r.emoji+'</span>'+
+      '<div class="result-type"><em>'+r.type+'</em></div>'+
+      '<div style="font-size:13px;color:var(--muted);margin:4px 0 12px">(aka the '+r.fullname+')</div>'+
+      '<div class="result-tagline">'+r.tagline+'</div>'+
+    '</div>'+
+    '<div class="card"><div class="card-title">What this actually means</div><div style="font-size:14px;line-height:1.75">'+r.about+'</div></div>'+
+    '<div class="card"><div class="card-title">Wear more of this</div><ul class="rule-list">'+r.rules.map(function(rule){return '<li><span class="rule-icon">&#10003;</span><span>'+rule.text+'</span></li>';}).join('')+'</ul></div>'+
+    '<div class="card"><div class="card-title">Stop buying these</div><ul class="avoid-list">'+r.avoid.map(function(a){return '<li>'+a+'</li>';}).join('')+'</ul></div>'+
+    '<p class="share-note">Screenshot your result and tag <strong>@sudsstyles</strong> — I will personally check you got the right shape!</p>'+
+    '<button class="retake-btn" onclick="retake()">take the quiz again</button>';
+  showPage('page-result');
+  window.scrollTo(0,0);
+}
+
+function retake() { current=0;answers=[];showPage('page-quiz');renderQuestion();window.scrollTo(0,0); }
+function showPage(id) { document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');}); document.getElementById(id).classList.add('active'); }
+</script>
+</body>
+</html>
