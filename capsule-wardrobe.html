@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bundled Page</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -134,7 +135,37 @@ document.addEventListener('DOMContentLoaded', async function() {
     // createElement so they execute, awaiting onload for src scripts to
     // preserve ordering (React before ReactDOM before Babel before text/babel).
     const doc = new DOMParser().parseFromString(template, 'text/html');
+    if (!doc.querySelector('meta[name="viewport"]')) {
+      const __vp = doc.createElement('meta');
+      __vp.setAttribute('name', 'viewport');
+      __vp.setAttribute('content', 'width=device-width, initial-scale=1.0');
+      const __h = doc.head || doc.documentElement;
+      __h.insertBefore(__vp, __h.firstChild);
+    }
     document.documentElement.replaceWith(doc.documentElement);
+    // Responsive fit-to-width: each .sheet is a fixed 595px A4 canvas wrapped in a
+    // zoom:1.45 div (for desktop). Scale that zoom down so the sheet fits narrow
+    // viewports (iPhone) without horizontal overflow; never enlarge past the 1.45 default.
+    (function () {
+      function fitSheets() {
+        var vw = window.innerWidth || document.documentElement.clientWidth;
+        if (document.documentElement.clientWidth) vw = Math.min(vw, document.documentElement.clientWidth);
+        var avail = vw - 32; // 16px side padding x2
+        var z = Math.min(1.45, avail / 595);
+        var sheets = document.querySelectorAll('.sheet');
+        for (var i = 0; i < sheets.length; i++) {
+          var wrap = sheets[i].parentElement;
+          if (wrap) wrap.style.zoom = z;
+        }
+      }
+      fitSheets();
+      // Re-run once layout settles with the freshly-inserted viewport meta applied.
+      requestAnimationFrame(fitSheets);
+      window.addEventListener('load', fitSheets);
+      setTimeout(fitSheets, 300);
+      window.addEventListener('resize', fitSheets);
+      window.addEventListener('orientationchange', fitSheets);
+    })();
     const dead = Array.from(document.scripts);
     for (const old of dead) {
       const s = document.createElement('script');
